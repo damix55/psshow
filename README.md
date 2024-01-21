@@ -2,7 +2,7 @@
 PSShow is a web application that allows to manage a database of TV shows, movies and actors. It is developed using Spring Boot and PostgreSQL.
 
 
-## Screenshot
+## Screenshots
 ### Series
 ![Series](images/series.png)
 ![Series page](images/breakingbad.png)
