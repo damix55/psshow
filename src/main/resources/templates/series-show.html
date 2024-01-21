@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head th:include="main :: head">
+    <title id="title">PSShow</title>
+</head>
+
+<body th:include="main :: body">
+<div id="content">
+    <div class="card">
+        <div class="card-body">
+            <div class="row" style="margin-top: 1rem; margin-bottom: 1rem">
+                <div class="col">
+                    <h2 th:text="${series.title}"></h2>
+                </div>
+                <div class="col">
+                    <form method="post" th:action="@{/series/delete/{id}(id=${series.id})}">
+                        <div class="btn-group float-right" role="group" style="margin-top: 0.1rem">
+                            <a class="btn btn-primary" th:href="@{/series/{id}/actors(id=${series.id})}">Edit actors</a>
+                            <a class="btn btn-primary" th:href="@{/series/update/{id}(id=${series.id})}">Edit</a>
+                            <button class="btn btn-primary" type="submit">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="clearfix">
+                <img class="col-md-6 float-right mb-3 ms-md-3 pic" th:src="${series.picture}">
+                <p th:text="${'Genre: ' + series.genre}"></p>
+                <p th:text="${'Language: ' + series.language}"></p>
+                <p th:text="${'Seasons: ' + series.getSeasons().size}"></p>
+                <p th:text="${'Year: ' + series.getYears()}"></p>
+                <p>Starring:
+                <div th:each="actor : ${series.getActors()}" th:remove="tag">
+                    <a th:href="@{/actors/{id}(id=${actor.id})}" th:text="${actor.knownAs}"></a>
+                    <div th:remove="tag" th:text="${!actorStat.last} ? ','"></div>
+                </div>
+                </p>
+                <p style="text-align: justify;" th:text="${series.description}"></p>
+            </div>
+
+            <div class="row" style="margin-top: 2rem; margin-bottom: 1rem">
+                <div class="col">
+                    <h3>Seasons</h3>
+                </div>
+                <div class="col">
+                    <a class="btn btn-success float-right" th:href="@{/seasons/add/{id}(id=${series.id})}">Add
+                        season</a>
+                </div>
+            </div>
+
+
+            <div th:each="season : ${series.getSeasons()}">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="my-0 font-weight-normal" style="line-height: 1.8;"
+                                    th:text="@{Season {n} ({year})(n=${season.number}, year=${season.year})}"></h6>
+                            </div>
+                            <div class="col">
+                                <form method="post"
+                                      th:action="@{/seasons/delete/{seriesId}/{id}(id=${season.id}, seriesId=${series.id})}">
+                                    <div class="btn-group float-right" role="group">
+                                        <a class="btn btn-outline-primary btn-sm"
+                                           th:href="@{/episodes/add/{id}(id=${season.id})}">Add episode</a>
+                                        <a class="btn btn-outline-primary btn-sm"
+                                           th:href="@{/seasons/update/{seriesId}/{id}(id=${season.id}, seriesId=${series.id})}">Edit</a>
+                                        <button class="btn btn-outline-primary btn-sm" type="submit">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush" th:each="episode : ${season.getEpisodes()}">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col">
+                                    <span th:text="${episode.number} + '. ' + ${episode.title}"></span> <span
+                                        class="text-muted" th:text="'(' + ${episode.length} + ' min)'"></span>
+                                </div>
+                                <div class="col text-muted" style="text-align: right">
+                                    <form method="post"
+                                          th:action="@{/episodes/delete/{seasonId}/{id}(id=${episode.id}, seasonId=${season.id})}">
+                                        <div class="btn-group float-right" role="group">
+                                            <a class="btn btn-sm"
+                                               th:href="@{/episodes/update/{seasonId}/{id}(id=${episode.id}, seasonId=${season.id})}">Edit</a>
+                                            <button class="btn btn-sm" type="submit">Delete</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

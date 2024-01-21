@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head th:include="main :: head">
+    <title id="title">PSShow</title>
+</head>
+
+<body th:include="main :: body">
+<div id="content">
+    <div class="card">
+        <div class="card-body">
+            <div class="row" style="margin-top: 1rem; margin-bottom: 1rem">
+                <div class="col">
+                    <h2 th:text="${actor.knownAs}"></h2>
+                </div>
+                <div class="col">
+                    <form method="post" th:action="@{/actors/delete/{id}(id=${actor.id})}">
+                        <div class="btn-group float-right" role="group" style="margin-top: 0.1rem">
+                            <a class="btn btn-primary" th:href="@{/actors/update/{id}(id=${actor.id})}">Edit</a>
+                            <button class="btn btn-primary" type="submit">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="clearfix">
+                <img class="col-md-6 float-right mb-3 ms-md-3 pic" th:src="${actor.picture}">
+                <p th:text="${'Name: ' + actor.name}"></p>
+                <p th:text="${'Surname: ' + actor.surname}"></p>
+                <p th:if="${actor.gender == 0}">Gender: female</p>
+                <p th:if="${actor.gender == 1}">Gender: male</p>
+                <p th:if="${actor.gender == 2}">Gender: other</p>
+                <p th:text="'Birthday: ' + ${#dates.format(actor.birthday, 'dd/MM/yyyy')}"></p>
+                <span th:text="${actor.marriedTo != null} ? ${'Married to: '}"></span> <a
+                    th:href="${actor.marriedTo != null} ? ${'/actors/' + actor.marriedTo.id}"
+                    th:text="${actor.marriedTo != null} ? ${actor.marriedTo.getKnownAs()}"></a>
+                <p></p>
+                <p>Starred in:
+                <div th:each="production : ${actor.getProductions()}" th:remove="tag">
+                    <a th:href="@{/{type}/{id}(id=${production.id}, type=${production.type})}"
+                       th:text="${production.title}"></a>
+                    <div th:remove="tag" th:text="${!productionStat.last} ? ','"></div>
+                </div>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

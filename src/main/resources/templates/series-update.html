@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="main :: head">
+    <title id="title">PSShow - Edit series</title>
+</head>
+
+<body th:include="main :: body">
+<div id="content">
+    <form method="post" th:action="@{/series/update/} + ${series.id}" th:object="${series}">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input class="form-control" id="series-title" placeholder="Title" th:field="*{title}" type="text"
+                   value="${series.title}">
+            <small class="form-text text-muted" th:errors="*{title}" th:if="${#fields.hasErrors('title')}">Title
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="genre">Genre</label>
+            <input class="form-control" id="genre" placeholder="Genre" th:field="*{genre}" type="text"
+                   value="${series.genre}">
+            <small class="form-text text-muted" th:errors="*{genre}" th:if="${#fields.hasErrors('genre')}">Genre
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="language">Language</label>
+            <input class="form-control" id="language" placeholder="Language" th:field="*{language}" type="text"
+                   value="${series.language}">
+            <small class="form-text text-muted" th:errors="*{language}" th:if="${#fields.hasErrors('language')}">Language
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" placeholder="Description" rows="4" th:field="*{description}"
+                      value="${series.description}"></textarea>
+            <small class="form-text text-muted" th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="picture">Picture</label>
+            <input class="form-control" id="picture" placeholder="Picture" th:field="*{picture}" type="text"
+                   value="${series.picture}">
+            <small class="form-text text-muted" th:errors="*{picture}" th:if="${#fields.hasErrors('picture')}">Picture
+                Error</small>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" id="finished" placeholder="Finished" th:field="*{finished}" type="checkbox"
+                   value="${series.finished}">
+            <label class="form-check-label" for="finished">Finished</label>
+            <small class="form-text text-muted" th:errors="*{finished}" th:if="${#fields.hasErrors('finished')}">Finished
+                Error</small>
+        </div>
+        <br>
+        <button class="btn btn-primary" type="submit">Update Series</button>
+    </form>
+</div>
+</body>
+</html>

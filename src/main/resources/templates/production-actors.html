@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head th:include="main :: head">
+    <title id="title">PSShow</title>
+</head>
+
+<body th:include="main :: body">
+<div id="content">
+    <form method="post" th:action="@{/{type}/{id}/actors(id=${production.id}, type=${production.type})}"
+          th:object="${production}">
+        <div class="form-group">
+            <input th:field="*{id}" type="hidden"/>
+            <label for="actors">Starred actors (multiple select):</label>
+            <br/>
+            <select class="form-control" id="actors" multiple="multiple" size="10" th:field="*{actors}">
+                <option th:each="actor : ${actors}"
+                        th:text="${actor.knownAs}"
+                        th:value="${{actor}}">
+                </option>
+            </select>
+            <br/>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

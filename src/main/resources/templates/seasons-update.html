@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="main :: head">
+    <title id="title">PSShow - Edit season</title>
+</head>
+
+<body th:include="main :: body">
+<div id="content">
+    <form method="post" th:action="@{/seasons/update/{seriesId}/{id}(id=${season.id}, seriesId=${seriesId})}"
+          th:object="${season}">
+        <div class="form-group">
+            <label for="number">Number</label>
+            <input class="form-control" id="number" placeholder="Number" th:field="*{number}" type="text"
+                   value="${season.number}">
+            <small class="form-text text-muted" th:errors="*{number}" th:if="${#fields.hasErrors('number')}">Number
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="year">Year</label>
+            <input class="form-control" id="year" placeholder="Year" th:field="*{year}" type="text"
+                   value="${season.year}">
+            <small class="form-text text-muted" th:errors="*{year}" th:if="${#fields.hasErrors('year')}">Year
+                Error</small>
+        </div>
+        <button class="btn btn-primary" type="submit">Update Season</button>
+    </form>
+</div>
+</body>
+</html>

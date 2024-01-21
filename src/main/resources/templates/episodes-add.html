@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="main :: head">
+    <title id="title">PSShow - Add episode</title>
+</head>
+<body th:include="main :: body">
+<div id="content">
+    <form method="post" th:action="@{/episodes/add/{id}(id=${seasonId})}" th:object="${episode}">
+        <div class="form-group">
+            <label for="number">Number</label>
+            <input class="form-control" id="number" placeholder="Number" th:field="*{number}" type="text">
+            <small class="form-text text-muted" th:errors="*{number}" th:if="${#fields.hasErrors('number')}">Number
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input class="form-control" id="episode-title" placeholder="Title" th:field="*{title}" type="text">
+            <small class="form-text text-muted" th:errors="*{title}" th:if="${#fields.hasErrors('title')}">Title
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="length">Length (min)</label>
+            <input class="form-control" id="length" placeholder="Length" th:field="*{length}" type="text">
+            <small class="form-text text-muted" th:errors="*{length}" th:if="${#fields.hasErrors('length')}">Length
+                Error</small>
+        </div>
+        <button class="btn btn-primary" type="submit">Add Episode</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="main :: head">
+    <title id="title">PSShow - Edit movie</title>
+</head>
+
+<body th:include="main :: body">
+<div id="content">
+    <form method="post" th:action="@{/movies/update/} + ${movies.id}" th:object="${movies}">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input class="form-control" id="movie-title" placeholder="Title" th:field="*{title}" type="text"
+                   value="${movies.title}">
+            <small class="form-text text-muted" th:errors="*{title}" th:if="${#fields.hasErrors('title')}">Title
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="genre">Genre</label>
+            <input class="form-control" id="genre" placeholder="Genre" th:field="*{genre}" type="text"
+                   value="${movies.genre}">
+            <small class="form-text text-muted" th:errors="*{genre}" th:if="${#fields.hasErrors('genre')}">Genre
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="language">Language</label>
+            <input class="form-control" id="language" placeholder="Language" th:field="*{language}" type="text"
+                   value="${movies.language}">
+            <small class="form-text text-muted" th:errors="*{language}" th:if="${#fields.hasErrors('language')}">Language
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" placeholder="Description" rows="4" th:field="*{description}"
+                      value="${series.description}"></textarea>
+            <small class="form-text text-muted" th:errors="*{description}" th:if="${#fields.hasErrors('description')}">Description
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="picture">Picture</label>
+            <input class="form-control" id="picture" placeholder="Picture" th:field="*{picture}" type="text"
+                   value="${movies.picture}">
+            <small class="form-text text-muted" th:errors="*{picture}" th:if="${#fields.hasErrors('picture')}">Picture
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="director">Director</label>
+            <input class="form-control" id="director" placeholder="Director" th:field="*{director}" type="text"
+                   value="${movies.director}">
+            <small class="form-text text-muted" th:errors="*{director}" th:if="${#fields.hasErrors('director')}">Director
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="year">Year</label>
+            <input class="form-control" id="year" placeholder="Year" th:field="*{year}" type="text"
+                   value="${movies.year}">
+            <small class="form-text text-muted" th:errors="*{year}" th:if="${#fields.hasErrors('year')}">Year
+                Error</small>
+        </div>
+        <div class="form-group">
+            <label for="length">Length (min)</label>
+            <input class="form-control" id="length" placeholder="Length" th:field="*{length}" type="text"
+                   value="${movies.length}">
+            <small class="form-text text-muted" th:errors="*{length}" th:if="${#fields.hasErrors('length')}">Length
+                Error</small>
+        </div>
+        <button class="btn btn-primary" type="submit">Update Movie</button>
+    </form>
+</div>
+</body>
+</html>

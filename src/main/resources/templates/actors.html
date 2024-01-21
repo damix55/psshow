@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head th:include="main :: head">
+    <title id="title">PSShow - Actors</title>
+</head>
+
+<body th:include="main :: body">
+<div id="content">
+    <div class="row">
+        <div class="col">
+            <h3 style="margin-bottom: 1rem">Actors</h3>
+        </div>
+        <div class="col">
+            <div class="btn-group float-right" role="group">
+                <a class="btn btn-primary float-right" href="/actors/search">Search</a>
+                <a class="btn btn-primary float-right" href="/actors/add">Add</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:each="actor : ${actors}">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img class="card-pic" th:src="${actor.picture}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <a class="card-block stretched-link text-decoration-none"
+                           th:href="@{/actors/{id}(id=${actor.id})}">
+                            <h5 class="card-title" th:text="${actor.knownAs}"></h5>
+                            <p class="card-text-custom text-muted" th:text="${'Name: ' + actor.name}"></p>
+                            <p class="card-text-custom text-muted" th:text="${'Surname: ' + actor.surname}"></p>
+                            <p class="card-text-custom text-muted" th:if="${actor.gender == 0}">Gender: female</p>
+                            <p class="card-text-custom text-muted" th:if="${actor.gender == 1}">Gender: male</p>
+                            <p class="card-text-custom text-muted" th:if="${actor.gender == 2}">Gender: other</p>
+                            <p class="card-text-custom text-muted"
+                               th:text="'Birthday: ' + ${#dates.format(actor.birthday, 'dd/MM/yyyy')}"></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
